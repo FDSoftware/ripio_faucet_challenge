@@ -15,6 +15,10 @@ class Wallet(models.Model):
 
     nonce = models.IntegerField(default=0)
 
+    maxFeePerGas = models.IntegerField(
+        help_text="Maximum allowed gas price in wei", default=1100000
+    )
+
     def save(self, *args, **kwargs):
         if self.pk is not None:
             super().save(*args, **kwargs)
