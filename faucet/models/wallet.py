@@ -13,6 +13,8 @@ class Wallet(models.Model):
     )
     last_balance = models.DecimalField(max_digits=36, decimal_places=18, default=0)
 
+    nonce = models.IntegerField(default=0)
+
     def save(self, *args, **kwargs):
         if self.pk is not None:
             super().save(*args, **kwargs)

@@ -7,7 +7,7 @@ from faucet.models import Wallet
 
 @admin.register(Wallet)
 class WalletAdmin(admin.ModelAdmin):
-    readonly_fields = ["last_balance"]
+    readonly_fields = ["last_balance", "nonce"]
 
     def changelist_view(self, request, extra_context=None):
         first_object = Wallet.objects.get_or_create()
