@@ -26,6 +26,11 @@ this project needs configuration on the "Wallet" object before the api can be us
 for running celery locally:
 - `poetry run python -m celery -A config worker`
 
+to enable the programmed beat (to track the wallet balance every 10 minutes),
+[It is used in case the ETH balance is loaded or withdrawn through a location other than this API, after each transaction the account balance/nonce is tracked]
+
+- `poetry run python -m celery -A config worker -B`
+
 this repository is using ruff for formatting/precommit:
 
 https://github.com/astral-sh/ruff
