@@ -22,6 +22,8 @@ class WalletAdmin(admin.ModelAdmin):
 
 @admin.register(Transaction)
 class TransactionAdmin(admin.ModelAdmin):
+    list_display = ["hash", "nonce", "recipient", "amount", "status", "timestamp"]
+
     def has_add_permission(self, request):
         return False
 
