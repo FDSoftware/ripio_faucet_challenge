@@ -26,6 +26,7 @@ class TransactionRetrieveSerializer(serializers.ModelSerializer):
             "timestamp",
             "nonce",
             "gasPrice",
+            "gasUsed",
         ]
 
 

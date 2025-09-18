@@ -2,11 +2,11 @@ import os
 
 from celery import Celery
 
-from config.env import env
+# from config.env import env
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "proj.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
 
-app = Celery("proj", broker=env("CELERY_BROKER_URL"))
+app = Celery("config")
 
 app.config_from_object("django.conf:settings", namespace="CELERY")
 

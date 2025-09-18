@@ -1,15 +1,15 @@
 from celery import shared_task
 from web3.exceptions import TransactionNotFound
 
-from config.w3_init import async_w3
+from config.w3_init import sync_w3, async_w3
 from faucet.models import Transaction, Wallet
 
 
 @shared_task
-async def update_transaction_result(transaction_hash):
+def update_transaction_result(transaction_hash):
     try:
-        transaction_data = await async_w3.eth.get_transaction_receipt(transaction_hash)
-        transaction_model = Transaction.objects.get(transaction_hash=transaction_hash)
+        transaction_data = sync_w3.eth.wait_for_transaction_receipt(transaction_hash)
+        transaction_model = Transaction.objects.get(hash=transaction_hash)
 
         transaction_model.gasUsed = transaction_data["gasUsed"]
 
@@ -29,13 +29,14 @@ async def update_transaction_result(transaction_hash):
 
 
 @shared_task
-async def track_wallet_balance():
+def track_wallet_balance():
     wallet_address = async_w3.eth.default_account
-    wallet_balance = await async_w3.eth.get_balance(wallet_address)
-    wallet_nonce = await async_w3.eth.get_transaction_count(wallet_address)
 
-    wallet_model = Wallet.objects.get(address=wallet_address)
-    wallet_model.last_balance = wallet_balance
+    wallet_balance = sync_w3.eth.get_balance(wallet_address)
+    wallet_nonce = sync_w3.eth.get_transaction_count(wallet_address)
+
+    wallet_model = Wallet.objects.get(pk=1)
+    wallet_model.last_balance = sync_w3.from_wei(wallet_balance, "ether")
     wallet_model.nonce = wallet_nonce
 
     wallet_model.save()
