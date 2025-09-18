@@ -8,9 +8,14 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.12"
 django = "^5.2.6"
-web3 = "^7.13.0"
+web3 = {extras = ["tester"], version = "^7.13.0"}
 django-environ = "^0.12.0"
 dj-database-url = "^3.0.1"
+djangorestframework = "^3.16.1"
+eth-tester = "^0.13.0b1"
+celery = "^5.5.3"
+adrf = "^0.1.9"
+redis = "^6.4.0"
 
 
 [build-system]
