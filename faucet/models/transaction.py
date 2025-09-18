@@ -16,3 +16,4 @@ class Transaction(models.Model):
     nonce = models.IntegerField()
     status = models.CharField(choices=transaction_status, default="PENDING")
     gasPrice = models.IntegerField(help_text="Gas price in wei", default=0)
+    gasUsed = models.IntegerField(help_text="Gas used", default=0)
